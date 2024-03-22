@@ -1,15 +1,26 @@
 package com.blogger.payloads;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class UserDTO {
 
-private int id;
-	
+	private int id;
+
+	@NotEmpty
+	@Size(min = 4,message = "Username must be min 4 chars !!")
 	private String name;
-	
+
+	@Email(message = "Email address is not valid !!")
 	private String email;
-	
+
+	@NotEmpty
+	@Size(min = 3, max = 10, message = "Password must be min 3 and max 10 chars !!")
 	private String password;
-	
+
+	@NotNull
 	private String about;
 
 	public int getId() {
@@ -71,5 +82,5 @@ private int id;
 		return "UserDTO [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", about="
 				+ about + "]";
 	}
-	
+
 }

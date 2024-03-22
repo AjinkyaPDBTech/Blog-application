@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blogger.payloads.Apiresponse;
 import com.blogger.payloads.UserDTO;
 import com.blogger.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,7 +26,7 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/createuser")
-	public ResponseEntity<UserDTO> createuser(@RequestBody UserDTO userDTO) {
+	public ResponseEntity<UserDTO> createuser(@Valid @RequestBody UserDTO userDTO) {
 
 		UserDTO createuser = this.userService.createuser(userDTO);
 		return new ResponseEntity<>(createuser, HttpStatus.CREATED);
@@ -33,7 +34,7 @@ public class UserController {
 
 	// Update User
 	@PatchMapping("/updateuser/{userId}")
-	public ResponseEntity<UserDTO> updateuser(@RequestBody UserDTO userDTO, @PathVariable("userId") Integer uid) {
+	public ResponseEntity<UserDTO> updateuser(@Valid @RequestBody UserDTO userDTO, @PathVariable("userId") Integer uid) {
 
 		UserDTO updateuser = this.userService.updateuser(userDTO, uid);
 
